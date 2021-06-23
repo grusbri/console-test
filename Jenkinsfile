@@ -8,9 +8,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'go version'
+                def root = tool type: 'go', name: "Go"
 
-                sh "go build ${BINARY_NAME}"
+                withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+                    sh 'go version'
+                    sh "go build ${BINARY_NAME}"
+                }
             }
         }
 
