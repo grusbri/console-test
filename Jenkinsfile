@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'go version'
-                sh "go build ${BINARY_NAME}"
+                sh "go build -o ${BINARY_NAME}"
             }
         }
 
