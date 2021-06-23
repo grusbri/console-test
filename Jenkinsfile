@@ -1,17 +1,22 @@
 pipeline {
     agent any
 
+    environment {
+        BINARY_NAME="a3v1"
+    }
+
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'golang:1.16.5'
-                    reuseNode true
-                }
-            }
-
             steps {
                 sh 'go version'
+
+                sh "go build ${BINARY_NAME}"
+            }
+        }
+
+        stage('Execute') {
+            steps {
+                sh "./${BINARY_NAME}"
             }
         }
     }
