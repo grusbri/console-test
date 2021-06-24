@@ -17,7 +17,7 @@ pipeline {
     }
 
     triggers {
-        cron('0 0/15 * 1/1 * ? *')
+        cron('*/15 6-18 * * 1-5')
     }
 
     stages {
@@ -28,13 +28,23 @@ pipeline {
             }
         }
 
-        stage('Validate') {
+        stage('Confirm') {
             steps {
                 sh "./${BINARY_NAME}"
+                script {
+                    env.PROCEED = input message: "LGTM."
+                        parameters: [choice(name: "Proceed?", choices:'YES\nNO')]
+                }
             }
         }
 
         stage('Execute') {
+            when {
+                anyOf {
+                    environment name: 'PROCEED', value: 'YES';
+                    triggeredBy 'TimerTrigger'
+                }
+            }
             steps {
                 sh "./${BINARY_NAME}"
             }
