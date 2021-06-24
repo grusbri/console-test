@@ -7,9 +7,8 @@ pipeline {
 
     options {
         ansiColor('xterm')
-        buildDiscarder(
-            logRotator(numToKeepStr: '7')
-        )
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '7'))
     }
 
     tools {
