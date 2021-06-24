@@ -16,6 +16,10 @@ pipeline {
         go 'Go 1.16.5'
     }
 
+    triggers {
+        cron('0 0/15 * 1/1 * ? *')
+    }
+
     stages {
         stage('Build') {
             steps {
