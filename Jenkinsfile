@@ -29,11 +29,14 @@ pipeline {
         }
 
         stage('Confirm') {
+            when {
+                not { branch 'prod' }
+            }
             steps {
                 sh "./${BINARY_NAME}"
                 script {
-                    env.PROCEED = input message: "LGTM."
-                        parameters: [choice(name: "Proceed?", choices:'YES\nNO')]
+                    env.PROCEED = input message: "LGTM. Proceed?"
+                        parameters: [choice(name: "Proceed?", choices:['YES', 'NO'])]
                 }
             }
         }
@@ -42,7 +45,7 @@ pipeline {
             when {
                 anyOf {
                     environment name: 'PROCEED', value: 'YES';
-                    triggeredBy 'TimerTrigger'
+                    triggeredBy 'TimerTrigger';
                 }
             }
             steps {
