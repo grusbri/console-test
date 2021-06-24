@@ -11,10 +11,6 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '7'))
     }
 
-    tools {
-        go 'Go 1.16.5'
-    }
-
     triggers {
         cron('*/15 * * * 1-5')
     }
