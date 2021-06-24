@@ -51,7 +51,7 @@ pipeline {
                     echo "Current build was caused by: ${buildCause}\n"
 
                     // Force users to commit to a non-master branch first
-                    if(env.GIT_BRANCH != 'origin/master' || "${buildCause}".contains("UserIdCause")) {
+                    if(env.GIT_BRANCH != 'origin/master' || "${buildCause}".contains("Started by user")) {
                         env.PROCEED = input message: "Proceed?", ok: 'OK',
                         parameters: [choice(name: "proceed", choices:['YES', 'NO'])]
                     }
