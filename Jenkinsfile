@@ -28,15 +28,20 @@ pipeline {
             }
         }
 
+        stage('Dry Run') {
+            steps {
+                sh "./${BINARY_NAME}" // -dryrun
+            }
+        }
+
         stage('Confirm') {
             when {
                 not { branch 'prod' }
             }
             steps {
-                sh "./${BINARY_NAME}"
                 script {
-                    env.PROCEED = input message: "LGTM. Proceed?"
-                        parameters: [choice(name: "Proceed?", choices:['YES', 'NO'])]
+                    env.PROCEED = input message: "Proceed or Abort?",
+                    parameters: [choice(name: "proceed", choices:['YES', 'NO'])]
                 }
             }
         }
