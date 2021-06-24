@@ -28,6 +28,12 @@ pipeline {
             }
         }
 
+        stage('Validate') {
+            steps {
+                sh "./${BINARY_NAME}"
+            }
+        }
+
         stage('Execute') {
             steps {
                 sh "./${BINARY_NAME}"
