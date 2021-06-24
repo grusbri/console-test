@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     env.PROCEED = input message: "Proceed or Abort?",
-                    parameters: [choice(name: "proceed", choices:['YES'])]
+                    parameters: [string(name: "YES")]
                 }
             }
         }
