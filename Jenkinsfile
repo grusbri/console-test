@@ -36,12 +36,12 @@ pipeline {
 
         stage('Confirm') {
             when {
-                not { branch 'prod' }
+                not { branch 'master' }
             }
             steps {
                 script {
                     env.PROCEED = input message: "Proceed or Abort?",
-                    parameters: [string(name: "YES")]
+                    parameters: [choice(name: "proceed", choices:['YES'])]
                 }
             }
         }
