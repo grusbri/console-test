@@ -35,6 +35,7 @@ pipeline {
 
         stage('Confirm') {
             steps {
+                sh "echo ${GIT_BRANCH}"
                 script {
                     if(env.GIT_BRANCH != 'master') {
                         env.PROCEED = input message: "Proceed?", ok: 'OK',
