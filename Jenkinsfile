@@ -47,7 +47,7 @@ pipeline {
 
             steps {
                 script {
-                    def buildCause = currentBuild.rawBuild.getCauses()
+                    def buildCause = currentBuild.getBuildCauses()[0].shortDescription
                     echo "Current build was caused by: ${buildCause}\n"
 
                     // Force users to commit to a non-master branch first
