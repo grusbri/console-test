@@ -17,7 +17,7 @@ pipeline {
     }
 
     triggers {
-        cron('*/15 6-18 * * 1-5')
+        cron('*/15 * * * 1-5')
     }
 
     stages {
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     env.PROCEED = input message: "Proceed or Abort?",
-                    parameters: [choice(name: "proceed", choices:['YES', 'NO'])]
+                    parameters: [choice(name: "proceed", choices:['YES'])]
                 }
             }
         }
