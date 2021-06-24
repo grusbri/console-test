@@ -18,6 +18,10 @@ pipeline {
     stages {
 
         stage('Build') {
+            environment {
+                XDG_CACHE_HOME = "${WORKSPACE}/.cache"
+            }
+
             agent {
                 docker {
                     image 'golang:1.16.5'
