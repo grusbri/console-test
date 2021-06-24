@@ -34,13 +34,12 @@ pipeline {
         }
 
         stage('Confirm') {
-            when {
-                not { branch 'master' }
-            }
             steps {
                 script {
-                    env.PROCEED = input message: "Proceed?", ok: 'ok',
-                    parameters: [choice(name: "proceed", choices:['YES', 'NO'])]
+                    if(env.GIT_BRANCH != 'master') {
+                        env.PROCEED = input message: "Proceed?", ok: 'OK',
+                        parameters: [choice(name: "proceed", choices:['YES', 'NO'])]
+                    }
                 }
             }
         }
